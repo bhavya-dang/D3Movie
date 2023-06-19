@@ -78,13 +78,8 @@ function ChartModal({ movie, similarIMDB, theme }) {
       .delay((d, i) => i * 50)
       .duration(500)
       .attr("height", (d) => yScale(0) - yScale(parseBoxOffice(d.BoxOffice)))
-      .attr("fill", (d) =>
-        d === movie && theme === "halloween"
-          ? "orange"
-          : d === movie && theme !== "halloween"
-          ? "dark-orange"
-          : "gray"
-      );
+      .style("fill", (d) => (d === movie ? "#d97a0d" : "gray"));
+
     // bars
     //
     // bars
@@ -132,12 +127,12 @@ function ChartModal({ movie, similarIMDB, theme }) {
 
       {/* Put this part before </body> tag */}
       <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-      <div className="modal">
+      <div className="modal font-inter">
         <div className="modal-box z-50">
           {theme === "halloween" ? (
             <h3 className="text-lg font-bold">Box Office Revenue</h3>
           ) : (
-            <h3 className="text-lg text-[#0f0f0f] font-bold">
+            <h3 className="text-lg text-gray-100 font-bold">
               Box Office Revenue
             </h3>
           )}
