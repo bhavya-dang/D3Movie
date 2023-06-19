@@ -10,9 +10,9 @@ A simple movie app that uses D3.js to visualize movie data.
 
 ## Todo
 
-- [] Add error handlers and toast messages
-- [] Add theme switcher
-- [] Clicking on genre badges should take you to a page with all movies of that genre
-- [] Add more visualizations
-- [] Finish responsive design
-- [] Finish styling for light theme
+- [ ] Add error handlers and toast messages
+- [ ] Add theme switcher
+- [ ] Clicking on genre badges should take you to a page with all movies of that genre
+- [ ] Add more visualizations
+- [ ] Finish responsive design
+- [ ] Finish styling for light theme
