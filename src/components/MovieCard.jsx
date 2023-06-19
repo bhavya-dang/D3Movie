@@ -10,7 +10,7 @@ function formatNumber(number) {
   }
 }
 
-function MovieCard({ data }) {
+function MovieCard({ data, theme }) {
   const navigate = useNavigate();
 
   const handleCardClick = (id) => {
@@ -33,25 +33,58 @@ function MovieCard({ data }) {
               alt={movie.Title}
             />
             <div className="details grow">
-              <h2 className="title text-white text-[18px] font-bold">
-                {movie.Title}
-              </h2>
-              <p className="minorDetails mt-[5px] text-[13px] text-[#cecaca]">
-                <span>
-                  {movie.Year !== null ? movie.Year : "Not Yet Released"}
-                </span>{" "}
-                &bull;{" "}
-                <span>
-                  {movie.Rated !== null ? movie.Rated : "Not Yet Rated"}
-                </span>{" "}
-                &bull;{" "}
-                <span>
-                  {movie.Runtime !== null ? movie.Runtime : "Not Yet Released"}
-                </span>
-              </p>
-              <p className="plot text-white text-[16px] mt-3">{movie.Plot}</p>
+              {theme === "halloween" ? (
+                <>
+                  <h2 className="title text-white text-[18px] font-bold">
+                    {movie.Title}
+                  </h2>
 
-              {movie.imdbRating !== null && (
+                  <p className="minorDetails mt-[5px] text-[13px] text-[#cecaca]">
+                    <span>
+                      {movie.Year !== null ? movie.Year : "Not Yet Released"}
+                    </span>{" "}
+                    &bull;{" "}
+                    <span>
+                      {movie.Rated !== null ? movie.Rated : "Not Yet Rated"}
+                    </span>{" "}
+                    &bull;{" "}
+                    <span>
+                      {movie.Runtime !== null
+                        ? movie.Runtime
+                        : "Not Yet Released"}
+                    </span>
+                  </p>
+                  <p className="plot text-white text-[16px] mt-3">
+                    {movie.Plot}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2 className="title text-[#0f0f0f] text-[18px] font-bold">
+                    {movie.Title}
+                  </h2>
+                  <p className="minorDetails mt-[5px] text-[13px] text-[#0f0f0f]">
+                    <span>
+                      {movie.Year !== null ? movie.Year : "Not Yet Released"}
+                    </span>{" "}
+                    &bull;{" "}
+                    <span>
+                      {movie.Rated !== null ? movie.Rated : "Not Yet Rated"}
+                    </span>{" "}
+                    &bull;{" "}
+                    <span>
+                      {movie.Runtime !== null
+                        ? movie.Runtime
+                        : "Not Yet Released"}
+                    </span>
+                  </p>
+                  <p className="plot text-[#0f0f0f] text-[16px] mt-3">
+                    {movie.Plot}
+                  </p>
+                </>
+              )}
+
+              {movie.imdbRating !== null && theme === "halloween" ? (
                 <p className="rating text-white mt-10">
                   IMDb Rating: &#9733;
                   <span className="score font-bold">{movie.imdbRating}</span>
@@ -62,6 +95,21 @@ function MovieCard({ data }) {
                     )
                   </span>
                 </p>
+              ) : movie.imdbRating !== null && theme !== "halloween" ? (
+                <p className="rating text-[#0f0f0f] mt-10">
+                  IMDb Rating: &#9733;
+                  <span className="score font-bold">{movie.imdbRating}</span>
+                  <span className="outOf text-[16px] text-[#0f0f0f]">/10</span>
+                  <span className="ml-1">
+                    {" "}
+                    ({formatNumber(parseInt(movie.imdbVotes.replace(/,/g, "")))}
+                    )
+                  </span>
+                </p>
+              ) : (
+                () => {
+                  return null;
+                }
               )}
               <p className="genre-list mt-4">
                 {movie.Genre.split(",").map((genre) => (

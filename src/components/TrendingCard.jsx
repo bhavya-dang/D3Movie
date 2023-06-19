@@ -29,7 +29,7 @@ function TrendingCard({ data, theme }) {
       <div className="container grid grid-cols-5 gap-8 mt-[2%]">
         {data.map((movie) => (
           <div
-            className="card  hover:scale-105 transition-all hover:cursor-pointer"
+            className="card hover:scale-105 transition-all hover:cursor-pointer"
             key={movie.id}
             onClick={() => handleCardClick(movie.id)}
           >
