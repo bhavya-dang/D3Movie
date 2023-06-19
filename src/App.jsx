@@ -120,36 +120,16 @@ function App() {
           //   <a href="/">D3Movie</a>
           // </h1>
           <a href="/">
-            <img
-              className="w-16 h-16"
-              src="../src/assets/icon-white.svg"
-              alt=""
-            />
+            <img className="w-16 h-16" src="/assets/icon-white.svg" alt="" />
           </a>
         ) : (
           // <h1 className="font-inter font-semibold text-[3em] leading-[1.1] text-black flex-1">
           //   <a href="/">D3Movie</a>
           // </h1>
           <a href="/">
-            <img
-              className="w-16 h-16"
-              src="../src/assets/icon-black.svg"
-              alt=""
-            />
+            <img className="w-16 h-16" src="/assets/icon-black.svg" alt="" />
           </a>
         )}
-        {/* <button
-          className="btn btn-circle btn-lg"
-          onClick={() => {
-            setTheme(theme === "halloween" ? "bumblebee" : "halloween");
-            document
-              .querySelector(".html")
-              .setAttribute(
-                "data-theme",
-                theme === "halloween" ? "bumblebee" : "halloween"
-              );
-          }}
-        ></button> */}
 
         <div className="flex justify-end">
           <label className="swap swap-rotate ml-5 order-3">
