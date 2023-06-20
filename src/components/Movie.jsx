@@ -26,6 +26,7 @@ function Movie({ theme }) {
   useEffect(() => {
     getMovie(id);
     getTmdbId(id);
+    console.log(movie.imdbID);
     getSimilarMovies(tmdbID);
     const fetchPosterSrc = async () => {
       try {

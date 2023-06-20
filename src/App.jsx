@@ -116,18 +116,18 @@ function App() {
     <>
       <div className="container flex justify-between mt-5">
         {theme === "halloween" ? (
-          // <h1 className="font-inter font-semibold text-[3em] leading-[1.1] text-white flex-1">
-          //   <a href="/">D3Movie</a>
-          // </h1>
-          <a href="/">
+          <a href="/" className="flex items-base">
             <img className="w-16 h-16" src="/assets/icon-white.svg" alt="" />
+            <h1 className="ml-1 font-inter font-semibold text-[3em] text-white">
+              Movie
+            </h1>
           </a>
         ) : (
-          // <h1 className="font-inter font-semibold text-[3em] leading-[1.1] text-black flex-1">
-          //   <a href="/">D3Movie</a>
-          // </h1>
-          <a href="/">
-            <img className="w-16 h-16" src="/assets/icon-black.svg" alt="" />
+          <a href="/" className="flex items-base">
+            <img className="w-16 h-16" src="/assets/icon-gray.svg" alt="" />
+            <h1 className="ml-1 font-inter font-semibold text-[3em] text-[#0f0f0f]">
+              Movie
+            </h1>
           </a>
         )}
 
