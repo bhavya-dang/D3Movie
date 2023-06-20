@@ -95,7 +95,9 @@ function ChartModal({ movie, similarIMDB, theme }) {
       .call(yAxis);
   };
   useEffect(() => {
-    generateChart();
+    if (similarIMDB.length > 0 && movie) {
+      generateChart();
+    }
   }, []);
 
   const parseBoxOffice = (value) => {
@@ -108,7 +110,9 @@ function ChartModal({ movie, similarIMDB, theme }) {
       {/* The button to open modal */}
       <label
         htmlFor="my_modal_7"
-        onClick={generateChart}
+        onClick={() => {
+          similarIMDB.length > 0 && movie && generateChart();
+        }}
         className="btn bg-halloween-orange text-white hover:text-white font-inter glass
         hover:bg-gray-800 normal-case absolute bottom-[5%] right-[2%]"
       >
