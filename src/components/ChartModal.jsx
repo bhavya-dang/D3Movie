@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
 function ChartModal({ movie, similarIMDB, theme }) {
@@ -94,9 +94,9 @@ function ChartModal({ movie, similarIMDB, theme }) {
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(yAxis);
   };
-
-  // generateChart();
-  // }, [similarIMDB, movie]);
+  useEffect(() => {
+    generateChart();
+  }, []);
 
   const parseBoxOffice = (value) => {
     // Remove commas and dollar sign, then parse as a number
