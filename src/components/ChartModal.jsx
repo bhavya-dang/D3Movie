@@ -95,7 +95,7 @@ function ChartModal({ movie, similarIMDB, theme }) {
       .call(yAxis);
   };
   useEffect(() => {
-    if (similarIMDB.length > 0 && movie) {
+    if (similarIMDB && movie) {
       generateChart();
     }
   }, []);
@@ -111,7 +111,7 @@ function ChartModal({ movie, similarIMDB, theme }) {
       <label
         htmlFor="my_modal_7"
         onClick={() => {
-          similarIMDB.length > 0 && movie && generateChart();
+          similarIMDB && movie && generateChart();
         }}
         className="btn bg-halloween-orange text-white hover:text-white font-inter glass
         hover:bg-gray-800 normal-case absolute bottom-[5%] right-[2%]"
