@@ -94,6 +94,7 @@ function ChartModal({ movie, similarIMDB, theme }) {
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(yAxis);
   };
+
   useEffect(() => {
     if (similarIMDB && movie) {
       generateChart();
@@ -126,7 +127,7 @@ function ChartModal({ movie, similarIMDB, theme }) {
           {theme === "halloween" ? (
             <h3 className="text-lg font-bold">Box Office Revenue</h3>
           ) : (
-            <h3 className="text-lg text-gray-100 font-bold">
+            <h3 className="text-lg text-gray-900 font-bold">
               Box Office Revenue
             </h3>
           )}
