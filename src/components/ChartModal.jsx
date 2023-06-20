@@ -72,7 +72,10 @@ function ChartModal({ movie, similarIMDB, theme }) {
       })
       .attr("x", (d) => xScale(d.Title))
       .attr("y", (d) => yScale(parseBoxOffice(d.BoxOffice)))
-      .attr("width", xScale.bandwidth())
+      .attr("width", xScale.bandwidth());
+
+    svg
+      .selectAll("rect")
       .transition()
       .ease(d3.easeLinear)
       .delay((d, i) => i * 50)
