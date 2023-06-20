@@ -45,30 +45,17 @@ function ChartModal({ movie, similarIMDB, theme }) {
       .attr("width", width)
       .attr("height", height);
 
-    // // Create the tooltip
-    // const tip = d3Tip()
-    //   .attr("class", "d3-tip")
-    //   .html((d) => {
-    //     if (d.BoxOffice) {
-    //       return d.BoxOffice;
-    //     } else {
-    //       return "Box Office: N/A";
-    //     }
-    //   });
-
-    // // Call the tooltip
-    // svg.call(tip);
-
     // Create bars
     svg
       .selectAll("rect")
       .data(data)
       .join("rect")
-      .on("mouseover", function (event) {
-        d3.select(event.target).style("opacity", 0.5);
+      .on("mouseover", function () {
+        // Highlight the bar on hover
+        d3.select(this).style("opacity", 0.5);
       })
-      .on("mouseout", function (event) {
-        d3.select(event.target).style("opacity", 1);
+      .on("mouseout", function () {
+        d3.select(this).style("opacity", 1);
       })
       .attr("x", (d) => xScale(d.Title))
       .attr("y", (d) => yScale(parseBoxOffice(d.BoxOffice)))

@@ -205,7 +205,7 @@ function Movie({ theme }) {
     <>
       <div className="movie-container font-inter mt-[5.6%]">
         {movie && posterSrc && (
-          <div className="backdrop-container relative card w-full bg-base-200 opacity-75 shadow-xl">
+          <div className="backdrop-container relative card w-full bg-base-200 opacity-90 shadow-xl">
             {/* <figure>
               <img src={backdropSrc} alt={movie.Title} />
             </figure> */}
