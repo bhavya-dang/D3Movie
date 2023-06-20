@@ -4,7 +4,6 @@ import * as d3 from "d3";
 function ChartModal({ movie, similarIMDB, theme }) {
   const chartRef = useRef(null);
 
-  // useEffect(() => {
   const generateChart = () => {
     // Clear any previous chart
     d3.select(chartRef.current).selectAll("*").remove();
@@ -70,15 +69,6 @@ function ChartModal({ movie, similarIMDB, theme }) {
       .attr("height", (d) => yScale(0) - yScale(parseBoxOffice(d.BoxOffice)))
       .style("fill", (d) => (d === movie ? "#d97a0d" : "gray"));
 
-    // bars
-    //
-    // bars
-    //   .transition()
-    //   .ease(d3.easeLinear)
-    //   .delay((d, i) => i * 50)
-    //   .duration(500);
-
-    // Create x-axis
     const xAxis = d3.axisBottom(xScale);
     svg
       .append("g")
@@ -108,7 +98,6 @@ function ChartModal({ movie, similarIMDB, theme }) {
 
   return (
     <>
-      {/* The button to open modal */}
       <label
         htmlFor="my_modal_7"
         onClick={() => {
@@ -120,16 +109,13 @@ function ChartModal({ movie, similarIMDB, theme }) {
         Compare All
       </label>
 
-      {/* Put this part before </body> tag */}
       <input type="checkbox" id="my_modal_7" className="modal-toggle" />
       <div className="modal font-inter">
         <div className="modal-box z-50">
           {theme === "halloween" ? (
             <h3 className="text-lg font-bold">Box Office Revenue</h3>
           ) : (
-            <h3 className="text-lg text-gray-900 font-bold">
-              Box Office Revenue
-            </h3>
+            <h3 className="text-lg font-bold">Box Office Revenue</h3>
           )}
           <div className="py-4 svg w-full h-full" ref={chartRef}></div>
         </div>
