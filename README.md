@@ -18,4 +18,4 @@ A simple movie app that uses D3.js to visualize movie data.
 - [x] Finish styling for light theme
 - [ ] Extract all the utility functions in one file
 - [ ] Add metascore progress bar element on moviecard and movie
-- [ ] Add bar chart for box office revenue
+- [x] Add bar chart for box office revenue
