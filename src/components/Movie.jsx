@@ -244,11 +244,11 @@ function Movie({ theme }) {
                   <p className="minorDetails mt-[5px] text-[13px] text-[#cecaca]">
                     <span>{movie.Year ?? "Not Yet Released"} </span> &bull;{" "}
                     <span>
-                      {movie.Rated !== null ? movie.Rated : "Not Yet Rated"}
+                      {movie.Rated !== "N/A" ? movie.Rated : "Not Yet Rated"}
                     </span>{" "}
                     &bull;{" "}
                     <span>
-                      {movie.Runtime !== null
+                      {movie.Runtime !== "N/A"
                         ? movie.Runtime
                         : "Not Yet Released"}
                     </span>
@@ -257,7 +257,7 @@ function Movie({ theme }) {
                     {movie.Plot}
                   </p>
 
-                  {movie.imdbRating !== "N/A" && (
+                  {movie.imdbRating !== "N/A" ? (
                     <p className="rating text-white mt-10">
                       <span className="font-semibold">
                         IMDb Rating: &#9733;
@@ -272,10 +272,23 @@ function Movie({ theme }) {
                         )
                       </span>
                     </p>
+                  ) : (
+                    <p className="rating text-white mt-10">
+                      <span className="font-semibold">IMDb Rating:</span>
+                      <span className="score ml-1">No Rating</span>
+                      {/* <span className="outOf text-[16px] text-white">/10 </span>
+                  <span className="ml-1">
+                    (
+                    {formatNumber(
+                      parseInt(movie.imdbVotes.replace(/,/g, ""))
+                    )}
+                    )
+                  </span> */}
+                    </p>
                   )}
 
                   <p className="box-office text-white mt-1">
-                    <span className="font-semibold">Box Office:</span>
+                    <span className="font-semibold">Box Office Revenue:</span>
                     <span className="box-office-revenue ml-1">
                       {movie.BoxOffice}
                     </span>
@@ -305,11 +318,11 @@ function Movie({ theme }) {
                   <p className="minorDetails mt-[5px] text-[13px] text-[#0f0f0f ]">
                     <span>{movie.Year ?? "Not Yet Released"} </span> &bull;{" "}
                     <span>
-                      {movie.Rated !== null ? movie.Rated : "Not Yet Rated"}
+                      {movie.Rated !== "N/A" ? movie.Rated : "Not Yet Rated"}
                     </span>{" "}
                     &bull;{" "}
                     <span>
-                      {movie.Runtime !== null
+                      {movie.Runtime !== "N/A"
                         ? movie.Runtime
                         : "Not Yet Released"}
                     </span>

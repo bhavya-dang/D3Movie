@@ -41,15 +41,15 @@ function MovieCard({ data, theme }) {
 
                   <p className="minorDetails mt-[5px] text-[13px] text-[#cecaca]">
                     <span>
-                      {movie.Year !== null ? movie.Year : "Not Yet Released"}
+                      {movie.Year !== "N/A" ? movie.Year : "Not Yet Released"}
                     </span>{" "}
                     &bull;{" "}
                     <span>
-                      {movie.Rated !== null ? movie.Rated : "Not Yet Rated"}
+                      {movie.Rated !== "N/A" ? movie.Rated : "Not Yet Rated"}
                     </span>{" "}
                     &bull;{" "}
                     <span>
-                      {movie.Runtime !== null
+                      {movie.Runtime !== "N/A"
                         ? movie.Runtime
                         : "Not Yet Released"}
                     </span>
@@ -65,15 +65,15 @@ function MovieCard({ data, theme }) {
                   </h2>
                   <p className="minorDetails mt-[5px] text-[13px] text-[#0f0f0f]">
                     <span>
-                      {movie.Year !== null ? movie.Year : "Not Yet Released"}
+                      {movie.Year !== "N/A" ? movie.Year : "Not Yet Released"}
                     </span>{" "}
                     &bull;{" "}
                     <span>
-                      {movie.Rated !== null ? movie.Rated : "Not Yet Rated"}
+                      {movie.Rated !== "N/A" ? movie.Rated : "Not Yet Rated"}
                     </span>{" "}
                     &bull;{" "}
                     <span>
-                      {movie.Runtime !== null
+                      {movie.Runtime !== "N/A"
                         ? movie.Runtime
                         : "Not Yet Released"}
                     </span>
@@ -84,7 +84,7 @@ function MovieCard({ data, theme }) {
                 </>
               )}
 
-              {movie.imdbRating !== null && theme === "halloween" ? (
+              {movie.imdbRating !== "N/A" && theme === "halloween" ? (
                 <p className="rating text-white mt-10">
                   IMDb Rating: &#9733;
                   <span className="score font-bold">{movie.imdbRating}</span>
@@ -95,7 +95,7 @@ function MovieCard({ data, theme }) {
                     )
                   </span>
                 </p>
-              ) : movie.imdbRating !== null && theme !== "halloween" ? (
+              ) : movie.imdbRating !== "N/A" && theme !== "halloween" ? (
                 <p className="rating text-[#0f0f0f] mt-10">
                   IMDb Rating: &#9733;
                   <span className="score font-bold">{movie.imdbRating}</span>
