@@ -2,20 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ChartModal from "./ChartModal";
-
-function formatNumber(number) {
-  if (number >= 1000000) {
-    return (number / 1000000).toFixed(0) + "M";
-  } else if (number >= 1000) {
-    return (number / 1000).toFixed(0) + "k";
-  } else {
-    return number.toString();
-  }
-}
+import Error from "./Error";
+import formatNumber from "../functions";
 
 function Movie({ theme }) {
   const { id } = useParams();
-  // console.log("id params: ", id);
+
+  console.log("id params: ", id);
   const [movie, setMovie] = useState("");
   const [posterSrc, setPosterSrc] = useState("");
   // const [backdropSrc, setBackdropSrc] = useState("");
@@ -201,6 +194,18 @@ function Movie({ theme }) {
     }
   }
 
+  // Regular expression to match IMDb ID format (e.g., tt10366206)
+  const imdbIdRegex = /^tt\d{7}$/;
+
+  // Check if the id matches the IMDb ID format
+  const isValidImdbId = imdbIdRegex.test(id);
+
+  // Redirect to a not-found page if the id format is invalid
+  if (id === undefined || !isValidImdbId || id.length !== 9) {
+    return <Error theme={theme} />;
+    // navigate("/not-found");
+  }
+
   // getMovieTMDBPoster("tt12263384").then((res) => console.log(res));
   return (
     <>
@@ -217,7 +222,7 @@ function Movie({ theme }) {
               <a href={posterSrc}>
                 <img
                   className="poster w-[400px] h-auto object-center"
-                  src={posterSrc}
+                  src={movie.Poster}
                   alt={movie.Title}
                 />
               </a>

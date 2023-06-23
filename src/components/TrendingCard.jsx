@@ -55,9 +55,6 @@ function TrendingCard({ data, theme }) {
           </div>
         ))}
       </div>
-      {/* <Routes>
-        <Route path="/movie/:id" element={<Movie />} />
-      </Routes> */}
     </>
   );
 }

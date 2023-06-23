@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "halloween-orange": "#d97a0d",
+        "black-gray": "#0f0f0f",
       },
     },
     fontFamily: {

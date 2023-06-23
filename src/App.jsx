@@ -5,6 +5,7 @@ import MovieCard from "./components/MovieCard";
 import TrendingMovies from "./components/TrendingMovies";
 import Movie from "./components/Movie";
 import { Routes, Route, useSearchParams } from "react-router-dom";
+import Error from "./components/Error";
 
 function App() {
   const [data, setData] = useState([]);
@@ -15,28 +16,19 @@ function App() {
   const [imdbId, setIMDBId] = useState([]);
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-  // console.log(query);
 
   const handleSearch = async (term) => {
+    document.querySelector("#searchInput").value = query;
     setSearchTerm(term);
     await getID(term);
     await imdbId.map((id) => getData(id));
   };
 
-  // useEffect(() => {
-  //   if (
-  //     document.querySelector(".html").getAttribute("data-theme") === "halloween"
-  //   ) {
-  //     setTheme("halloween");
-  //   } else {
-  //     setTheme("bumblebee");
-  //   }
-  // }, [theme]);
-
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
       setTheme(storedTheme);
+      // document.querySelector("html").setAttribute("data-theme", storedTheme);
     }
   }, []);
 
@@ -47,7 +39,6 @@ function App() {
 
   useEffect(() => {
     if (query) {
-      console.log(query);
       handleSearch(query);
     }
   }, [query]);
@@ -60,7 +51,11 @@ function App() {
         try {
           const responses = await Promise.all(promises); // wait for all promises to resolve
           const arr = responses.map((response) => response.data);
-          setData(arr);
+          if (arr.length > 0) {
+            setData(arr);
+          } else {
+            setData([]);
+          }
           // console.log("arr: ", arr);
         } catch (error) {
           console.log(error.message);
@@ -81,7 +76,7 @@ function App() {
       );
       // console.log("movie: ", movie.data.Search);
       const searchResults = movie.data.Search;
-      const imdbIds = searchResults.slice(0, 10).map((movie) => movie.imdbID);
+      const imdbIds = searchResults.map((movie) => movie.imdbID);
       setIMDBId(imdbIds);
     } catch (error) {
       console.log(error.message);
@@ -106,7 +101,8 @@ function App() {
         ...prevCache,
         [id]: movie,
       }));
-      console.log("movie: ", movie.data);
+
+      // console.log("movie: ", movie.data);
       return movie;
     } catch (error) {
       console.log(error.message);
@@ -131,7 +127,7 @@ function App() {
           </a>
         )}
 
-        <div className="flex justify-end">
+        <div className="theme-switcher flex justify-end">
           <label className="swap swap-rotate ml-5 order-3">
             {/* this hidden checkbox controls the state */}
             <input
@@ -173,15 +169,20 @@ function App() {
       <Routes>
         <Route
           path="/search"
-          element={<MovieCard data={data} theme={theme} />}
+          element={
+            <MovieCard
+              data={data}
+              theme={theme}
+              searchTerm={searchTerm}
+              query={query}
+              loading={loading}
+            />
+          }
         />
-      </Routes>
 
-      <Routes>
         <Route path="/" element={<TrendingMovies theme={theme} />} />
-      </Routes>
-      <Routes>
         <Route path="/movie/:id" element={<Movie theme={theme} />} />
+        <Route path="*" element={<Error theme={theme} />} />
       </Routes>
     </>
   );
