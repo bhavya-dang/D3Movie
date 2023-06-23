@@ -10,12 +10,11 @@ A simple movie app that uses D3.js to visualize movie data.
 
 ## Todo
 
-- [ ] Add error handlers and toast messages
+- [ ] Add error handlers, 404 page and toast message
 - [x] Add theme switcher
-- [ ] Clicking on genre badges should take you to a page with all movies of that genre
 - [ ] Add more visualizations
 - [ ] Finish responsive design
 - [x] Finish styling for light theme
 - [ ] Extract all the utility functions in one file
-- [ ] Add metascore progress bar element on moviecard and movie
+- [ ] Add metascore progress bar element on movie page
 - [x] Add bar chart for box office revenue
