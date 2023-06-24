@@ -24,7 +24,13 @@ function Movie({ theme }) {
     const fetchPosterSrc = async () => {
       try {
         const response = await getMovieTMDBPoster(id);
-        setPosterSrc(response);
+        if (response !== undefined) {
+          setPosterSrc(response);
+        } else {
+          setPosterSrc(
+            "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+          );
+        }
       } catch (error) {
         console.log(error.message);
       }
@@ -106,7 +112,7 @@ function Movie({ theme }) {
 
       setMovie(movie.data);
       // getMovieTMDBPoster(movie.data.imdbID);
-      // console.log("current movie data: ", movie.data);
+      console.log("current movie data: ", movie.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -195,56 +201,43 @@ function Movie({ theme }) {
   }
 
   // Regular expression to match IMDb ID format (e.g., tt10366206)
-  const imdbIdRegex = /^tt\d{7}$/;
+  const imdbIdRegex = /^tt\d{6,8}$/;
 
   // Check if the id matches the IMDb ID format
   const isValidImdbId = imdbIdRegex.test(id);
 
   // Redirect to a not-found page if the id format is invalid
-  if (id === undefined || !isValidImdbId || id.length !== 9) {
+  if (!isValidImdbId) {
     return <Error theme={theme} />;
-    // navigate("/not-found");
   }
 
-  // getMovieTMDBPoster("tt12263384").then((res) => console.log(res));
+  if (!movie && !similarMovies) {
+    return <Error theme={theme} />;
+  }
+
   return (
     <>
-      <div className="movie-container font-inter mt-[5.6%]">
+      <div className="movie-container mt-[5.6%] font-inter">
         {movie && posterSrc && (
-          <div className="backdrop-container relative card w-full bg-base-200 opacity-90 shadow-xl">
+          <div className="backdrop-container card relative w-full bg-base-200 opacity-90 shadow-xl">
             {/* <figure>
               <img src={backdropSrc} alt={movie.Title} />
             </figure> */}
             <div
-              className="card-body [&:not(:first-child)]:mt-[3%] flex flex-row gap-[20px]"
+              className="card-body flex flex-row gap-[20px] [&:not(:first-child)]:mt-[3%]"
               key={movie.imdbID}
             >
               <a href={posterSrc}>
                 <img
-                  className="poster w-[400px] h-auto object-center"
-                  src={movie.Poster}
+                  className="poster h-auto w-[400px] object-center"
+                  src={posterSrc}
                   alt={movie.Title}
                 />
               </a>
-              {/* <div className="w-[500px] h-[500px] bg-gray-200 overflow-hidden">
-            <a href={posterSrc}>
-              <img
-                className="poster w-full h-full object-cover object-center"
-                src={posterSrc}
-                alt={movie.Title}
-              />
-            </a>
-          </div> */}
-              {/* <div className="poster-wrapper relative w-full overflow-hidden pb-[150%]">
-            <img
-              className="poster absolute w-full h-full object-cover left-0 top-0"
-              src={posterSrc}
-              alt={movie.Title}
-            />
-          </div> */}
+
               {theme === "halloween" ? (
                 <div className="details grow font-inter">
-                  <h2 className="title text-white text-[18px] font-bold">
+                  <h2 className="title text-[18px] font-bold text-white">
                     {movie.Title}
                   </h2>
                   <p className="minorDetails mt-[5px] text-[13px] text-[#cecaca]">
@@ -259,17 +252,27 @@ function Movie({ theme }) {
                         : "Not Yet Released"}
                     </span>
                   </p>
-                  <p className="plot text-white text-[16px] mt-3">
+                  <p className="plot mt-3 text-[16px] text-white">
                     {movie.Plot}
                   </p>
 
                   {movie.imdbRating !== "N/A" ? (
-                    <p className="rating text-white mt-10">
-                      <span className="font-semibold">
-                        IMDb Rating: &#9733;
+                    <p className="rating mt-10 text-white">
+                      <span className="flex justify-between font-semibold">
+                        {/* IMDb Rating: &#9733; */}
+                        IMDb Rating:{" "}
+                        <svg
+                          className="ml-1 mt-1 h-4 w-4 fill-current text-halloween-orange"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 576 512"
+                        >
+                          <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
+                        </svg>
                       </span>
-                      <span className="score">{movie.imdbRating}</span>
-                      <span className="outOf text-[16px] text-white">/10 </span>
+                      <span className="score ml-[0.22rem]">
+                        {movie.imdbRating}
+                      </span>
+                      {/* <span className="outOf text-[16px] text-white">/10 </span> */}
                       <span className="ml-1">
                         (
                         {formatNumber(
@@ -279,21 +282,13 @@ function Movie({ theme }) {
                       </span>
                     </p>
                   ) : (
-                    <p className="rating text-white mt-10">
+                    <p className="rating mt-10 text-white">
                       <span className="font-semibold">IMDb Rating:</span>
                       <span className="score ml-1">No Rating</span>
-                      {/* <span className="outOf text-[16px] text-white">/10 </span>
-                  <span className="ml-1">
-                    (
-                    {formatNumber(
-                      parseInt(movie.imdbVotes.replace(/,/g, ""))
-                    )}
-                    )
-                  </span> */}
                     </p>
                   )}
 
-                  <p className="box-office text-white mt-1">
+                  <p className="box-office mt-1 text-white">
                     <span className="font-semibold">Box Office Revenue:</span>
                     <span className="box-office-revenue ml-1">
                       {movie.BoxOffice}
@@ -303,7 +298,7 @@ function Movie({ theme }) {
                   <p className="genre-list mt-4">
                     {movie.Genre.split(",").map((genre) => (
                       <span
-                        className="genre [&:not(:first-child)]:ml-[10px] text-[15px] bg-[#96431a] px-[9px] py-[6px] rounded-full text-white"
+                        className="genre rounded-full bg-[#96431a] px-[9px] py-[6px] text-[15px] text-white [&:not(:first-child)]:ml-[10px]"
                         key={genre}
                       >
                         {genre}
@@ -318,10 +313,10 @@ function Movie({ theme }) {
                 </div>
               ) : (
                 <div className="details grow font-inter">
-                  <h2 className="title text-[#0f0f0f] text-[18px] font-bold">
+                  <h2 className="title font-inter text-[18px] font-bold text-black">
                     {movie.Title}
                   </h2>
-                  <p className="minorDetails mt-[5px] text-[13px] text-[#0f0f0f ]">
+                  <p className="minorDetails mt-[5px] text-[13px] text-black-gray">
                     <span>{movie.Year ?? "Not Yet Released"} </span> &bull;{" "}
                     <span>
                       {movie.Rated !== "N/A" ? movie.Rated : "Not Yet Rated"}
@@ -333,19 +328,27 @@ function Movie({ theme }) {
                         : "Not Yet Released"}
                     </span>
                   </p>
-                  <p className="plot text-[#0f0f0f] text-[16px] mt-3">
+                  <p className="plot mt-3 text-[16px] text-black">
                     {movie.Plot}
                   </p>
 
-                  {movie.imdbRating !== "N/A" && (
-                    <p className="rating text-[#0f0f0f] mt-10">
-                      <span className="font-semibold">
-                        IMDb Rating: &#9733;
+                  {movie.imdbRating !== "N/A" ? (
+                    <p className="rating mt-10 text-black">
+                      <span className="flex justify-between font-semibold">
+                        {/* IMDb Rating: &#9733; */}
+                        IMDb Rating:{" "}
+                        <svg
+                          className="ml-1 mt-1 h-4 w-4 fill-current text-halloween-orange"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 576 512"
+                        >
+                          <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
+                        </svg>
                       </span>
-                      <span className="score">{movie.imdbRating}</span>
-                      <span className="outOf text-[16px] text-[#0f0f0f]">
-                        /10{" "}
+                      <span className="score ml-[0.22rem]">
+                        {movie.imdbRating}
                       </span>
+                      {/* <span className="outOf text-[16px] text-white">/10 </span> */}
                       <span className="ml-1">
                         (
                         {formatNumber(
@@ -354,10 +357,15 @@ function Movie({ theme }) {
                         )
                       </span>
                     </p>
+                  ) : (
+                    <p className="rating mt-10 text-black">
+                      <span className="font-semibold">IMDb Rating:</span>
+                      <span className="score ml-1">No Rating</span>
+                    </p>
                   )}
 
-                  <p className="box-office text-[#0f0f0f] mt-1">
-                    <span className="font-semibold">Box Office:</span>
+                  <p className="box-office mt-1 text-black">
+                    <span className="font-semibold">Box Office Revenue:</span>
                     <span className="box-office-revenue ml-1">
                       {movie.BoxOffice}
                     </span>
@@ -366,7 +374,7 @@ function Movie({ theme }) {
                   <p className="genre-list mt-4">
                     {movie.Genre.split(",").map((genre) => (
                       <span
-                        className="genre [&:not(:first-child)]:ml-[10px] text-[15px] bg-[#96431a] px-[9px] py-[6px] rounded-full text-white"
+                        className="genre rounded-full bg-[#96431a] px-[9px] py-[6px] text-[15px] text-white [&:not(:first-child)]:ml-[10px]"
                         key={genre}
                       >
                         {genre}
@@ -374,11 +382,10 @@ function Movie({ theme }) {
                     ))}
                   </p>
 
-                  <ChartModal
-                    movie={movie}
-                    similarIMDB={similarIMDB}
-                    theme={theme}
-                  />
+                  {/* <button className="btn bg-halloween-orange text-white font-inter glass normal-case mt-[30%]">
+                  Compare All
+                </button> */}
+                  <ChartModal movie={movie} similarIMDB={similarIMDB} />
                 </div>
               )}
             </div>
@@ -388,27 +395,27 @@ function Movie({ theme }) {
 
       {movie && theme === "halloween" ? (
         <div className="similar-movies font-inter">
-          <h2 className="text-white text-2xl font-bold mt-[5.6%]">
-            <i className="text-red-600 fa-solid fa-fire-flame-curved"></i> More
+          <h2 className="mt-[5.6%] text-2xl font-bold text-white">
+            <i className="fa-solid fa-fire-flame-curved text-red-600"></i> More
             like this
           </h2>
-          <div className="container grid grid-cols-5 gap-8 mt-[2%] mb-10">
+          <div className="container mb-10 mt-[2%] grid grid-cols-5 gap-8">
             {similarMovies.map((movie) => (
               <div
-                className="card hover:scale-105 transition-all hover:cursor-pointer"
+                className="card transition-all hover:scale-105 hover:cursor-pointer"
                 key={movie.id}
                 onClick={() => handleCardClick(movie.id)}
               >
-                <div className="poster-wrapper rounded-md transition-all ease-in-out duration-200 relative w-full overflow-hidden pb-[150%]">
+                <div className="poster-wrapper relative w-full overflow-hidden rounded-md pb-[150%] transition-all duration-200 ease-in-out">
                   <img
-                    className="poster absolute w-full h-full object-cover left-0 top-0"
+                    className="poster absolute left-0 top-0 h-full w-full object-cover"
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
                   />
                 </div>
 
                 <div className="details">
-                  <h2 className="title font-inter text-gray-300 text-[15px] mt-2 font-semibold">
+                  <h2 className="title mt-2 font-inter text-[15px] font-semibold text-gray-300">
                     {movie.title}
                   </h2>
                 </div>
@@ -418,27 +425,27 @@ function Movie({ theme }) {
         </div>
       ) : movie && theme !== "halloween" ? (
         <div className="similar-movies font-inter">
-          <h2 className="text-[#0f0f0f] text-2xl font-bold mt-[5.6%]">
-            <i className="text-red-600 fa-solid fa-fire-flame-curved"></i> More
+          <h2 className="mt-[5.6%] text-2xl font-bold text-[#0f0f0f]">
+            <i className="fa-solid fa-fire-flame-curved text-red-600"></i> More
             like this
           </h2>
-          <div className="container grid grid-cols-5 gap-8 mt-[2%] mb-10">
+          <div className="container mb-10 mt-[2%] grid grid-cols-5 gap-8">
             {similarMovies.map((movie) => (
               <div
-                className="card hover:scale-105 transition-all hover:cursor-pointer"
+                className="card transition-all hover:scale-105 hover:cursor-pointer"
                 key={movie.id}
                 onClick={() => handleCardClick(movie.id)}
               >
-                <div className="poster-wrapper rounded-md transition-all ease-in-out duration-200 relative w-full overflow-hidden pb-[150%]">
+                <div className="poster-wrapper relative w-full overflow-hidden rounded-md pb-[150%] transition-all duration-200 ease-in-out">
                   <img
-                    className="poster absolute w-full h-full object-cover left-0 top-0"
+                    className="poster absolute left-0 top-0 h-full w-full object-cover"
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
                   />
                 </div>
 
                 <div className="details">
-                  <h2 className="title text-gray-600 text-[15px] mt-2 font-semibold">
+                  <h2 className="title mt-2 text-[15px] font-semibold text-gray-600">
                     {movie.title}
                   </h2>
                 </div>

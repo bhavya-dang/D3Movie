@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Search from "./components/Search";
 import MovieCard from "./components/MovieCard";
 import TrendingMovies from "./components/TrendingMovies";
 import Movie from "./components/Movie";
-import { Routes, Route, useSearchParams } from "react-router-dom";
 import Error from "./components/Error";
+import Trending from "./components/Trending";
 
 function App() {
   const [data, setData] = useState([]);
@@ -93,7 +94,7 @@ function App() {
       const movie = await axios.get(
         `http://www.omdbapi.com/?apikey=${
           import.meta.env.VITE_APP_OMDB
-        }&i=${id}&plot=full&type=movie`
+        }&i=${id}&plot=full&type=movie&page=2`
       );
 
       // Store fetched data in cache
@@ -110,25 +111,25 @@ function App() {
   }
   return (
     <>
-      <div className="container flex justify-between mt-5">
+      <div className="container mt-5 flex justify-between">
         {theme === "halloween" ? (
-          <a href="/" className="flex items-base">
-            <img className="w-16 h-16" src="/assets/icon-white.svg" alt="" />
-            <h1 className="ml-1 font-inter font-semibold text-[3em] text-white">
+          <a href="/" className="items-base flex">
+            <img className="h-16 w-16" src="/assets/icon-white.svg" alt="" />
+            <h1 className="ml-1 font-inter text-[3em] font-semibold text-white">
               Movie
             </h1>
           </a>
         ) : (
-          <a href="/" className="flex items-base">
-            <img className="w-16 h-16" src="/assets/icon-gray.svg" alt="" />
-            <h1 className="ml-1 font-inter font-semibold text-[3em] text-[#0f0f0f]">
+          <a href="/" className="items-base flex">
+            <img className="h-16 w-16" src="/assets/icon-gray.svg" alt="" />
+            <h1 className="ml-1 font-inter text-[3em] font-semibold text-[#0f0f0f]">
               Movie
             </h1>
           </a>
         )}
 
         <div className="theme-switcher flex justify-end">
-          <label className="swap swap-rotate ml-5 order-3">
+          <label className="swap swap-rotate order-3 ml-5">
             {/* this hidden checkbox controls the state */}
             <input
               type="checkbox"
@@ -145,7 +146,7 @@ function App() {
 
             {/* sun icon */}
             <svg
-              className="swap-on fill-current w-11 h-11"
+              className="swap-on h-11 w-11 fill-current"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -154,7 +155,7 @@ function App() {
 
             {/* moon icon */}
             <svg
-              className="swap-off fill-current w-11 h-11"
+              className="swap-off h-11 w-11 fill-current"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -162,7 +163,12 @@ function App() {
             </svg>
           </label>
 
-          <Search className="mt-5" onSearch={handleSearch} loading={loading} />
+          <Search
+            className="mt-5"
+            onSearch={handleSearch}
+            loading={loading}
+            theme={theme}
+          />
         </div>
       </div>
 
@@ -179,7 +185,10 @@ function App() {
             />
           }
         />
-
+        <Route
+          path="/trending"
+          element={<Trending theme={theme} loading={loading} />}
+        />
         <Route path="/" element={<TrendingMovies theme={theme} />} />
         <Route path="/movie/:id" element={<Movie theme={theme} />} />
         <Route path="*" element={<Error theme={theme} />} />

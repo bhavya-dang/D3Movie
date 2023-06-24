@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import TrendingCard from "./TrendingCard";
+import { Link } from "react-router-dom";
 
 function TrendingMovies({ theme }) {
   const [data, setData] = useState([]);
@@ -34,21 +35,40 @@ function TrendingMovies({ theme }) {
       {data.length > 0 && (
         <div className="container mb-10">
           {theme === "halloween" ? (
-            <h1 className="mt-[6%] text-white font-bold text-3xl">
-              <i className="text-red-600 fa-solid fa-fire-flame-curved"></i>{" "}
-              Trending Movies
-            </h1>
+            <div className="flex justify-between">
+              <h1 className="mt-[6%] font-inter text-3xl font-bold text-gray-200">
+                <i className="fa-solid fa-fire-flame-curved text-red-600"></i>{" "}
+                Trending Movies
+              </h1>
+              <h1
+                id="more-btn"
+                className="mt-[6%] font-inter text-xl text-gray-200 hover:text-white"
+              >
+                <Link to="/trending">
+                  More <i className="fa-solid fa-arrow-right ml-1"></i>
+                </Link>
+              </h1>
+            </div>
           ) : (
-            <h1 className="mt-[6%] text-slate-900 font-bold text-3xl">
-              {" "}
-              <i className="text-red-600 fa-solid fa-fire-flame-curved"></i>{" "}
-              Trending Movies
-            </h1>
+            <div className="flex justify-between">
+              <h1 className="mt-[6%] font-inter text-3xl font-bold text-gray-900">
+                <i className="fa-solid fa-fire-flame-curved text-red-600"></i>{" "}
+                Trending Movies
+              </h1>
+              <h1
+                id="more-btn"
+                className="mt-[6%] font-inter text-xl text-gray-800 hover:text-black"
+              >
+                <Link to="/trending">
+                  More <i className="fa-solid fa-arrow-right ml-1"></i>
+                </Link>
+              </h1>
+            </div>
           )}
           {theme === "halloween" ? (
-            <hr className="mt-2.5 mb-5 w-full opacity-30" />
+            <hr className="mb-5 mt-2.5 w-full opacity-30" />
           ) : (
-            <hr className="mt-2.5 mb-5 w-full opacity-90 bg-slate-950" />
+            <hr className="mb-5 mt-2.5 w-full bg-black" />
           )}
           <TrendingCard data={data} theme={theme} />
         </div>
