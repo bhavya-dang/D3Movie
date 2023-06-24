@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Error from "./Error";
 
 function MovieCard({ data, theme, searchTerm, query, loading }) {
   const navigate = useNavigate();
@@ -6,6 +7,10 @@ function MovieCard({ data, theme, searchTerm, query, loading }) {
   const handleCardClick = (id) => {
     navigate(`/movie/${id}`);
   };
+
+  if (query.length < 1) {
+    return <Error theme={theme} />;
+  }
 
   if (!loading && data.length !== 0) {
     return (
