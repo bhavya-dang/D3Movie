@@ -1,12 +1,30 @@
+![logo](/public/assets/banner.png)
+
 # D3Movie
 
 A simple movie app that uses D3.js to visualize movie data.
 
+> This app is still in development.
+> Live demo is [_here_](https://d3movie.vercel.app/)
+
+## Objective
+
+The objective of the app was to help users with their academic and market research by providing them with a simple and easy to use tool to visualize movie data. Some users prefer visual cues to decide between what to watch and what not to watch. This app helps them with just that only. With just a glance, a user can decide whether a movie is worth watching or not by looking at the ratings and the box office revenue and also compare it with other movies.
+
 ## Tech Stack
 
-- React.js
-- TailwindCSS and Daisy UI
-- D3.js
+- React.js (frontend)
+- TailwindCSS and Daisy UI (design)
+- D3.js (data visualization)
+
+## Features
+
+✅ Search for movies <br/>
+✅ Trending movies with functional pagination<br/>
+✅ Individual movie page with more details<br/>
+✅ Similar movies recommendations<br/>
+✅ Data visualization for easy comparison and analysis<br/>
+✅ Simple and friendly UI<br/>
 
 ## Todo
 
@@ -14,23 +32,11 @@ A simple movie app that uses D3.js to visualize movie data.
 - [x] Add theme switcher
 - [ ] Finish responsive design
 - [x] Finish styling for light theme
-- [ ] Extract all the utility functions in one file
+- [ ] Add more visualizations (metascore, imdb rating, etc.)
 - [x] Add bar chart for box office revenue
 - [x] Add trending page with pagination
 
-## Documentation
+## References
 
-The OMDB API only provides
-
-```json
-{
-  "Title": "Spider-Man",
-  "Year": "2002",
-  "imdbID": "tt0145487",
-  "Type": "movie",
-  "Poster": "https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_SX300.jpg"
-}
-```
-
-this much data when you search using a query. This is the reason why, I had to use the two API calls to get my movie data.
-Firstly, I did an API call to the search endpoint and got the imdbIDs of all the results. Then, I did another API call to the id endpoint for each of the imdbIDs to get the rest of the data.
+[IMDB Website](https://imdb.com/)<br/>  
+[daisyUI](https://daisyui.com/)

@@ -8,7 +8,7 @@ import formatNumber from "../functions";
 function Movie({ theme }) {
   const { id } = useParams();
 
-  console.log("id params: ", id);
+  // console.log("id params: ", id);
   const [movie, setMovie] = useState("");
   const [posterSrc, setPosterSrc] = useState("");
   // const [backdropSrc, setBackdropSrc] = useState("");
@@ -71,7 +71,7 @@ function Movie({ theme }) {
           const responses = await Promise.all(promises);
           const arr = responses.map((response) => response);
           setSimilarIMDB(arr);
-          // console.log("arr: ", arr);
+          console.log("arr: ", arr);
         } catch (error) {
           console.log(error.message);
         }
@@ -306,10 +306,12 @@ function Movie({ theme }) {
                     ))}
                   </p>
 
-                  {/* <button className="btn bg-halloween-orange text-white font-inter glass normal-case mt-[30%]">
-                  Compare All
-                </button> */}
-                  <ChartModal movie={movie} similarIMDB={similarIMDB} />
+                  {/* <ChartModal movie={movie} similarIMDB={similarIMDB} /> */}
+                  <ChartModal
+                    movie={movie}
+                    similarIMDB={similarIMDB}
+                    theme={theme}
+                  />
                 </div>
               ) : (
                 <div className="details grow font-inter">
@@ -382,10 +384,12 @@ function Movie({ theme }) {
                     ))}
                   </p>
 
-                  {/* <button className="btn bg-halloween-orange text-white font-inter glass normal-case mt-[30%]">
-                  Compare All
-                </button> */}
-                  <ChartModal movie={movie} similarIMDB={similarIMDB} />
+                  {/* <ChartModal movie={movie} similarIMDB={similarIMDB} /> */}
+                  <ChartModal
+                    movie={movie}
+                    similarIMDB={similarIMDB}
+                    theme={theme}
+                  />
                 </div>
               )}
             </div>

@@ -24,7 +24,7 @@ function TrendingMovies({ theme }) {
       );
       const movies = data.data.results;
       setData(movies.slice(0, 10));
-      // console.log(movies.slice(0, 10));
+      console.log(movies.slice(0, 10));
     } catch (error) {
       console.log(error.message);
     }
