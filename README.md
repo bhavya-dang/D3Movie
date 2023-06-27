@@ -35,6 +35,7 @@ The objective of the app was to help users with their academic and market resear
 - [ ] Add more visualizations (metascore, imdb rating, etc.)
 - [x] Add bar chart for box office revenue
 - [x] Add trending page with pagination
+- [x] Add tooltip for bar chart
 
 ## References
 
