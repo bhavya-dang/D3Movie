@@ -17,6 +17,37 @@ The objective of the app was to help users with their academic and market resear
 - TailwindCSS and Daisy UI (design)
 - D3.js (data visualization)
 
+## Directory Structure
+
+```
+movie-app-with-d3
+├── index.html
+├── package.json
+├── postcss.config.js
+├── public
+|  └── assets
+|     ├── 404_new.svg
+|     ├── banner.png
+|     ├── icon-gray.svg
+|     ├── icon-white.svg
+├── README.md
+├── src
+|  ├── App.jsx
+|  ├── components
+|  |  ├── ChartModal.jsx
+|  |  ├── Error.jsx
+|  |  ├── Movie.jsx
+|  |  ├── MovieCard.jsx
+|  |  ├── Search.jsx
+|  |  ├── Trending.jsx
+|  |  ├── TrendingCard.jsx
+|  |  └── TrendingMovies.jsx
+|  ├── functions.js
+|  ├── index.css
+|  └── main.jsx
+└── tailwind.config.js
+```
+
 ## Features
 
 ✅ Search for movies <br/>
@@ -32,7 +63,7 @@ The objective of the app was to help users with their academic and market resear
 - [x] Add theme switcher
 - [ ] Finish responsive design
 - [x] Finish styling for light theme
-- [ ] Add more visualizations (metascore, imdb rating, etc.)
+- [x] Add more visualizations (metascore, imdb rating, etc.)
 - [x] Add bar chart for box office revenue
 - [x] Add trending page with pagination
 - [x] Add tooltip for bar chart
