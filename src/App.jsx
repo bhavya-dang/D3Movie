@@ -71,7 +71,7 @@ function App() {
   async function getID(term) {
     try {
       const movie = await axios.get(
-        `http://www.omdbapi.com/?apikey=${
+        `https://www.omdbapi.com/?apikey=${
           import.meta.env.VITE_APP_OMDB
         }&s=${term}`
       );
@@ -92,7 +92,7 @@ function App() {
 
     try {
       const movie = await axios.get(
-        `http://www.omdbapi.com/?apikey=${
+        `https://www.omdbapi.com/?apikey=${
           import.meta.env.VITE_APP_OMDB
         }&i=${id}&plot=full&type=movie&page=2`
       );

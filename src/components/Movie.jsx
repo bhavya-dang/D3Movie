@@ -53,7 +53,7 @@ function Movie({ theme }) {
       const { imdb_id } = await getImdbID(id);
       // console.log("imdb id: ", imdb_id);
       const data = await axios.get(
-        `http://www.omdbapi.com/?apikey=${
+        `https://www.omdbapi.com/?apikey=${
           import.meta.env.VITE_APP_OMDB
         }&i=${imdb_id}&plot=full`
       );
@@ -105,7 +105,7 @@ function Movie({ theme }) {
   async function getMovie(id) {
     try {
       const movie = await axios.get(
-        `http://www.omdbapi.com/?apikey=${
+        `https://www.omdbapi.com/?apikey=${
           import.meta.env.VITE_APP_OMDB
         }&i=${id}&plot=full`
       );
